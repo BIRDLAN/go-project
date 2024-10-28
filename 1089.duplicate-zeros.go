@@ -8,17 +8,31 @@ package main
 // @lc code=start
 // Time: O(n), space: O(n), n = length of arr
 type queue struct {
-	container []interface
+	container []interface{}
 }
 
-func (queue) Enqueue(data interface) {
-	
+func (q *queue) Enqueue(data interface{}) {
+	q.container = append(q.container, data)
 }
 
+func (q *queue) Dequeue() interface{} {
+	if q.IsEmpty() == true {
+		panic("queue is empty!")
+	}
+	data := q.container[0]
+	q.container = q.container[1:]
+	return data
+}
 
+func (q *queue) IsEmpty() bool {
+	if len(q.container) == 0 {
+		return true
+	}
+	return false
+}
 
 func duplicateZeros(arr []int) {
-	q := queue.New()
+	q := queue{}
 	for index, value := range arr {
 		if value == 0 {
 			q.Enqueue(0)
